@@ -1,6 +1,6 @@
 const User = require('../models/user');
 
-module.exports.addUser = (req, res) => {
+module.exports.createUser = (req, res) => {
   const { name, about, avatar } = req.body;
 
   User.create({ name, about, avatar })
@@ -12,6 +12,12 @@ module.exports.addUser = (req, res) => {
         res.status(500).send({ message: 'На сервере произошла ошибка' });
       }
     });
+};
+
+module.exports.getUsers = (req, res) => {
+  User.find({})
+    .then((users) => res.send(users))
+    .catch(() => res.status(500).send({ message: 'На сервере произошла ошибка' }));
 };
 
 module.exports.getUserById = (req, res) => {
@@ -28,12 +34,6 @@ module.exports.getUserById = (req, res) => {
   } else {
     res.status(400).send({ message: 'Некорректный id' });
   }
-};
-
-module.exports.getUsers = (req, res) => {
-  User.find({})
-    .then((users) => res.send(users))
-    .catch((err) => res.status(500).send({ message: err.message }));
 };
 
 module.exports.editUserData = (req, res) => {
