@@ -15,9 +15,8 @@ mongoose.connect(DB_URL, {
 
 app.use((req, res, next) => {
   req.user = {
-    _id: '64cd72f5fe88cf6ba9fbc863', // вставьте сюда _id созданного в предыдущем пункте пользователя
+    _id: '64cd72f5fe88cf6ba9fbc863',
   };
-
   next();
 });
 
@@ -25,7 +24,7 @@ app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
 
 app.use('*', (req, res) => {
-  res.status(404).send({ message: 'Страница не найдена.' });
+  res.status(404).send({ message: 'Страница не найдена' });
 });
 
 app.listen(PORT);
