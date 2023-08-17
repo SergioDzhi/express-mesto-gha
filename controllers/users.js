@@ -9,7 +9,7 @@ const {
   OK_CODE, CREATED_CODE,
 } = require('../utils/consts');
 
-module.exports.createUser = (req, res, next) => {
+module.exports.addUser = (req, res, next) => {
   const {
     name, about, avatar, email, password,
   } = req.body;
@@ -35,6 +35,12 @@ module.exports.createUser = (req, res, next) => {
 module.exports.getUsers = (req, res, next) => {
   User.find({})
     .then((users) => res.send(users))
+    .catch(next);
+};
+
+module.exports.getMeUser = (req, res, next) => {
+  User.findById(req.user._id)
+    .then((users) => res.status(OK_CODE).send(users))
     .catch(next);
 };
 
