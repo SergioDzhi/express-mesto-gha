@@ -3,8 +3,6 @@ const { celebrate, Joi } = require('celebrate');
 const { addUser } = require('../controllers/users');
 const { urlRegex, emailRegex } = require('../utils/consts');
 
-router.post('/', addUser);
-
 router.post('/', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
@@ -14,5 +12,7 @@ router.post('/', celebrate({
     password: Joi.string().required().min(3),
   }).unknown(true),
 }), addUser);
+
+// router.post('/', addUser);
 
 module.exports = router;
